@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>图片裁剪之上传头像</title>
+		<link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="css/style.css"/>
+	</head>
+	
+	<body>
+		<div class="content-panel flex-center">
+			<div class="header-box">
+				<h3>头像</h3>
+				<div class="img-box flex-center">
+					<div class="text-box flex-center">
+						<div class="upload-text" onclick="displayDealBox(true)">上传头像</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="box-wrapper flex-center" id="select_img_box_id">
+			<div class="box-cls">
+				<i class="fa fa-close icon-close" onclick="displayDealBox(false)"></i>
+				<h3 class="header">上传头像</h3>
+				<div class="content">
+					<div class="imgs-box">
+						<div class="img-left">
+							<!--无图片时-->
+							<div class="empty-tips" onclick="openFile()" id="empty_img_id">
+								<h2 class="empty-icon"><i class="fa fa-upload"></i></h2>
+								<h3 class="empty-text">
+									点击选择图片
+									<div class="sub-text">
+										只支持JPG、GIF、PNG格式的图片文件，且文件大小小于1M
+									</div>
+								</h3>
+							</div>
+							<!--有图片时-->
+							<div class="img-panel" id="has_img_id">
+								<img class="selected_img" />
+								<span class="mask" onmousemove="clearMouseState()"></span>
+								<span class="dynamic-circle-box" draggable="true" id="dynamic_circle_box_id" onmousedown="mouseDown(event)" onmousemove="mouseMove(event)" onmouseup="mouseUp(event)">
+									<span class="dynamic-circle">
+										<img class="selected_img" id="dynamic_image_id"/>
+									</span>
+									<span class="constant-circle" onmousedown="resize_mouseDown(event)" onmousemove="resize_mouseMove(event)" onmouseup="resize_mouseUp(event)" ></span>
+								</span>
+							</div>
+						</div>
+						<div class="img-right">
+							<h2 class="preview-text">预览</h2>
+							<ul class="preview-boxs">
+								<li>
+									<div class="preview-100">
+										<!--注意：canvas宽高必须以属性方式设置-->
+										<canvas class="box-100" id="canvas_100_id" width="100" height="100"></canvas>
+										100 x 100
+									</div>
+								</li>
+								<li>
+									<div class="preview-50">
+										<!--注意：canvas宽高必须以属性方式设置-->
+										<canvas class="box-50" id="canvas_50_id" width="50" height="50"></canvas>
+										50 x 50
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="footer">
+					<div class="action-box">
+						上传
+					</div>
+					<div class="action-box">
+						选择文件
+						<input type="file" accept="image/x-png, image/gif, image/jpeg" value="选择文件" onchange="selectImage(this)" id="open_input_file_id"/>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<script src="js/drawImage.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/draggable.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>
