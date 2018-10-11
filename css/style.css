@@ -36,12 +36,13 @@ body,
 }
 
 .header-box .img-box {
-	width: 200px;
-	height: 200px;
+	width: 150px;
+	height: 150px;
 	margin: 0 auto;
 	border-radius: 100px;
 	overflow: hidden;
-	background: paleturquoise;
+	position: relative;
+	background: rgb(246, 246, 246);
 }
 
 .text-box {
@@ -50,10 +51,22 @@ body,
 	box-sizing: border-box;
 	background: rgba(0, 0, 0, .1);
 	transition: all 0.5s;
-	opacity: 0;
+}
+
+.text-box>img {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	left: 0;
+	top: 0;
+	display: none;
 }
 
 .text-box .upload-text {
+	position: absolute;
+    left: 25px;
+    top: 57px;
+    z-index: 2;
 	width: 100px;
 	height: 36px;
 	line-height: 36px;
@@ -66,7 +79,7 @@ body,
 	cursor: pointer;
 }
 
-.text-box:hover {
+.text-box:hover .upload-text{
 	opacity: 1;
 }
 
@@ -81,6 +94,7 @@ body,
 	position: fixed;
 	top: 0;
 	left: 0;
+	z-index: 10;
 	width: 100%;
 	height: 100%;
 	margin: 0;
@@ -138,7 +152,6 @@ body,
 	width: 360px;
 	height: 360px;
 	float: left;
-	overflow: hidden;
 	background-color: rgb(246, 246, 246);
 }
 
@@ -171,14 +184,8 @@ body,
 
 .img-left .img-panel {
 	position: relative;
-	width: 100%;
 	box-sizing: border-box;
 	display: none;
-}
-
-.img-left .img-panel .selected_img {
-	width: 360px;
-	height: 360px;
 }
 
 .img-left .img-panel .mask {
@@ -186,18 +193,17 @@ body,
 	left: 0;
 	top: 0;
 	display: block;
-	width: 100%;
-	height: 100%;
 	background: rgba(0, 0, 0, .5);
 }
 
 .img-left .img-panel .dynamic-circle-box {
 	position: absolute;
 	display: block;
-	width: 200px;
-	height: 200px;
+	width: 50px;
+	height: 50px;
 	top: 0;
 	left: 0;
+	z-index: 12;
 	cursor: move;
 }
 
@@ -205,7 +211,7 @@ body,
 	position: relative;
 	width: 100%;
 	height: 100%;
-	border: 2px solid #fff;
+	/*border: 2px solid #fff;*/
 	border-radius: 50%;
 	overflow: hidden;
 	display: block;
@@ -214,8 +220,8 @@ body,
 	position: absolute;
 	left: 0;
 	top: 0;
-	margin-left: -2px; 
-	margin-top: -2px;
+	/*margin-left: -2px; 
+	margin-top: -2px;*/
 }
 
 .img-panel .dynamic-circle-box .constant-circle {
@@ -269,7 +275,7 @@ body,
 .preview-boxs .preview-100 .box-100 {
 	border-radius: 50px;
 	margin-bottom: 8px;
-	background-color: pink;
+	background-color: #e6e6e6;
 	display: block;
 }
 
@@ -284,7 +290,7 @@ body,
 	margin: 0 auto;
 	border-radius: 25px;
 	margin-bottom: 8px;
-	background-color: pink;
+	background-color: #e6e6e6;
 	display: block;
 }
 

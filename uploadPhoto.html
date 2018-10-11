@@ -12,10 +12,12 @@
 		<div class="content-panel flex-center">
 			<div class="header-box">
 				<h3>头像</h3>
-				<div class="img-box flex-center">
-					<div class="text-box flex-center">
+				<div class="img-box">
+					<div class="text-box">
 						<div class="upload-text" onclick="displayDealBox(true)">上传头像</div>
+						<img id="header_photo_id"/>
 					</div>
+					
 				</div>
 			</div>
 		</div>
@@ -26,7 +28,7 @@
 				<h3 class="header">上传头像</h3>
 				<div class="content">
 					<div class="imgs-box">
-						<div class="img-left">
+						<div class="img-left flex-center" onmousemove="mouseMove(event)" onmouseup="mouseUp()" onmouseleave="mouseUp()">
 							<!--无图片时-->
 							<div class="empty-tips" onclick="openFile()" id="empty_img_id">
 								<h2 class="empty-icon"><i class="fa fa-upload"></i></h2>
@@ -39,13 +41,13 @@
 							</div>
 							<!--有图片时-->
 							<div class="img-panel" id="has_img_id">
-								<img class="selected_img" />
-								<span class="mask" onmousemove="clearMouseState()"></span>
-								<span class="dynamic-circle-box" draggable="true" id="dynamic_circle_box_id" onmousedown="mouseDown(event)" onmousemove="mouseMove(event)" onmouseup="mouseUp(event)">
+								<img class="selected_img"/>
+								<span class="mask" id="mask_id"></span>
+								<span class="dynamic-circle-box" id="dynamic_circle_box_id" onmousedown="mouseDown(event)">
 									<span class="dynamic-circle">
 										<img class="selected_img" id="dynamic_image_id"/>
 									</span>
-									<span class="constant-circle" onmousedown="resize_mouseDown(event)" onmousemove="resize_mouseMove(event)" onmouseup="resize_mouseUp(event)" ></span>
+									<span class="constant-circle" onmousedown="resize_mouseDown(event)"></span>
 								</span>
 							</div>
 						</div>
@@ -71,7 +73,7 @@
 					</div>
 				</div>
 				<div class="footer">
-					<div class="action-box">
+					<div class="action-box" onclick="uploadImage()">
 						上传
 					</div>
 					<div class="action-box">
