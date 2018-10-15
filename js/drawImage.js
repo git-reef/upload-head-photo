@@ -1,3 +1,6 @@
+var limitWidth = 0, //图片放置之后的真实宽高，对于裁剪圆动作过程中限制其范围时有用
+	limitHeight = 0;
+
 /*显隐头像处理窗口*/
 function displayDealBox(isShow){
 	if(typeof isShow === 'boolean'){
@@ -49,8 +52,6 @@ function selectImage(file){
 	}
 	reader.readAsDataURL(file.files[0]);
 }
-
-var limitWidth = 0, limitHeight = 0;
 
 /*根据上传的图片调整样式*/
 function displayImage(imgUrl, imgWidth, imgHeight){
@@ -125,27 +126,37 @@ function drawCanvas(sourceId, destId, sx, sy, swidth, sheight, x, y, width, heig
 	ctx.drawImage(sourceImg,  x, y, width, height);
 }
 
+/*
+ * 裁剪合适尺寸的图片放到相应大小的canvas上，否则100*100的裁剪区域放到150*150的区域上会出现模糊现象
+ */
 function uploadImage(){
+	var dynamicCircleEl = document.getElementById('dynamic_circle_box_id');
+	var sourceImg = document.getElementById('dynamic_image_id');
+	var ratio = sourceImg.naturalHeight / sourceImg.clientHeight;
+	var dest_150 = document.createElement('canvas');
+	dest_150.width = 150;
+	dest_150.height = 150;
+	var ctx_150 = dest_150.getContext("2d");
+	ctx_150.drawImage(sourceImg,dynamicCircleEl.offsetLeft * ratio, dynamicCircleEl.offsetTop * ratio, dynamicCircleEl.clientWidth * ratio, dynamicCircleEl.clientHeight * ratio, 0, 0, 150, 150);
+	
 	var head_photo = document.getElementById('header_photo_id');
-	var canvas_100 = document.getElementById('canvas_100_id');
-//	var dom  = document.getElementsByClassName('img-box')[0];
 	var _image = new Image();
-	_image = canvas_100.toDataURL("image/png");
-	
-//	canvas_100.toBlob(function(blob) {
-//	  var newImg = document.createElement("img"),
-//	      url = URL.createObjectURL(blob);
-//	
-//	  newImg.onload = function() {
-//	    // no longer need to read the blob so it's revoked
-//	    URL.revokeObjectURL(url);
-//	  };
-//	
-//	  newImg.src = url;
-//	  dom.appendChild(newImg);
-//	});
-	
-	displayDealBox(false);
+	_image = dest_150.toDataURL("image/png");
 	head_photo.src = _image;
-	head_photo.style.display = 'block'
+	head_photo.style.display = 'block';
+	displayDealBox(false);
+	
+	/*如果传给服务器，可以封装成FormData
+	// dataURL 的格式为 “data:image/png;base64,****”,逗号之前都是一些说明性的文字，我们只需要逗号之后的就行了
+	var data=canvas_100.toDataURL();
+	data=data.split(',')[1];
+	data=window.atob(data);
+	var ia = new Uint8Array(data.length);
+	for (var i = 0; i < data.length; i++) {
+	    ia[i] = data.charCodeAt(i);
+	};
+	// canvas.toDataURL 返回的默认格式就是 image/png
+	var blob=new Blob([ia], {type:"image/png"});
+	var fd=new FormData();
+	fd.append('file',blob);*/
 }
